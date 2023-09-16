@@ -1,4 +1,7 @@
+import 'package:estados/bloc/usuario/usuario_bloc.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenDos extends StatelessWidget {
   static String nameScreen = "ScreenDos";
@@ -8,6 +11,7 @@ class ScreenDos extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
 
+    final usuarioBloc = context.read<UsuarioBloc>();
     return Scaffold(
       appBar: AppBar(title: const Text("Screen Dos")),
       body: Container(
@@ -21,19 +25,30 @@ class ScreenDos extends StatelessWidget {
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  final Usuario usuario = Usuario(
+                      nombre: "Andes",
+                      edad: 20,
+                      profesiones: ['Developer', 'Video Player']);
+
+                  usuarioBloc.add(ActivateUsuario(usuario: usuario));
+                },
                 child: const Text("Establecer usuario"),
               ),
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  usuarioBloc.add(ChangeAgeUsuario(edad: 23));
+                },
                 child: const Text("Cambiar edad"),
               ),
               MaterialButton(
                 textColor: Colors.white,
                 color: color.primary,
-                onPressed: () {},
+                onPressed: () {
+                  usuarioBloc.add(AddProUsuario());
+                },
                 child: const Text("Añadir profesion"),
               ),
             ]),
