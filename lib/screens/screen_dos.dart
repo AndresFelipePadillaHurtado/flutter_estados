@@ -1,3 +1,5 @@
+import 'package:estados/models/usuario.dart';
+import 'package:estados/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 
 class ScreenDos extends StatelessWidget {
@@ -21,13 +23,19 @@ class ScreenDos extends StatelessWidget {
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  final usuario =
+                      Usuario(nombre: "Andres", edad: 20, profesiones: []);
+                  usuarioProvider.cargarUsuario(usuario);
+                },
                 child: const Text("Establecer usuario"),
               ),
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  usuarioProvider.cambiarEdad(22);
+                },
                 child: const Text("Cambiar edad"),
               ),
               MaterialButton(
