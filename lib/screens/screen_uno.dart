@@ -14,49 +14,60 @@ class ScreenUno extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        width: double.infinity,
-        height: double.infinity,
-        child: const SingleChildScrollView(
-          child: Column(children: [
-            Text(
-              "General",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            ListTile(
-              title: Text("Nombre"),
-            ),
-            ListTile(
-              title: Text("Edad"),
-            ),
-            Divider(),
-            Text(
-              "Profesiones",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Divider(),
-            ListTile(
-              title: Text("Profesion 1"),
-            ),
-            ListTile(
-              title: Text("Profesion 2"),
-            ),
-            ListTile(
-              title: Text("Profesion 3"),
-            ),
-            ListTile(
-              title: Text("Profesion 4"),
-            ),
-          ]),
-        ),
-      ),
+      body: const _BodyScaffold(),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
           Navigator.pushNamed(context, ScreenDos.nameScreen);
         },
         child: const Icon(Icons.supervised_user_circle),
+      ),
+    );
+  }
+}
+
+class _BodyScaffold extends StatelessWidget {
+  const _BodyScaffold({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      width: double.infinity,
+      height: double.infinity,
+      child: const SingleChildScrollView(
+        child: Column(children: [
+          Text(
+            "General",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          ListTile(
+            title: Text("Nombre"),
+          ),
+          ListTile(
+            title: Text("Edad"),
+          ),
+          Divider(),
+          Text(
+            "Profesiones",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Profesion 1"),
+          ),
+          ListTile(
+            title: Text("Profesion 2"),
+          ),
+          ListTile(
+            title: Text("Profesion 3"),
+          ),
+          ListTile(
+            title: Text("Profesion 4"),
+          ),
+        ]),
       ),
     );
   }
