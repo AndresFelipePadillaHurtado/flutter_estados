@@ -1,9 +1,15 @@
+import 'package:estados/bloc/usuario/usuario_cubit.dart';
 import 'package:estados/screens/screen_dos.dart';
 import 'package:estados/screens/screen_uno.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(
+      create: (context) => UsuarioCubit(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
