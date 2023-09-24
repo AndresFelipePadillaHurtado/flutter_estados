@@ -1,5 +1,8 @@
+import 'package:estados/controllers/usuario_controller.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:estados/screens/screen_dos.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ScreenUno extends StatelessWidget {
   static String nameScreen = "ScreenUno";
@@ -8,13 +11,28 @@ class ScreenUno extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuarioController = Get.put(UsuarioController());
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Screen Uno"),
         centerTitle: true,
         elevation: 0,
+        // ignore: prefer_const_constructors
+        actions: [
+          IconButton(
+              onPressed: () => usuarioController.borrarUsuario(),
+              icon: const Icon(Icons.delete_forever))
+        ],
       ),
-      body: const _BodyScaffold(),
+      // ignore: prefer_const_constructors
+      body: Obx(() => usuarioController.existeUsuario.value
+          ? _BodyScaffold(usuario: usuarioController.usuario.value)
+          // ignore: prefer_const_constructors
+          : Center(
+              // ignore: prefer_const_constructors
+              child: Text("No se ha establecido ningun usuario!"),
+            )),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
@@ -27,9 +45,9 @@ class ScreenUno extends StatelessWidget {
 }
 
 class _BodyScaffold extends StatelessWidget {
-  const _BodyScaffold({
-    super.key,
-  });
+  final Usuario usuario;
+
+  const _BodyScaffold({required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +55,29 @@ class _BodyScaffold extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       width: double.infinity,
       height: double.infinity,
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(children: [
-          Text(
+          const Text(
             "General",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           ListTile(
-            title: Text("Nombre"),
+            title: Text("Nombre: ${usuario.nombre}"),
           ),
           ListTile(
-            title: Text("Edad"),
+            title: Text("Edad: ${usuario.edad}"),
           ),
-          Divider(),
-          Text(
+          const Divider(),
+          const Text(
             "Profesiones",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          Divider(),
-          ListTile(
-            title: Text("Profesion 1"),
-          ),
-          ListTile(
-            title: Text("Profesion 2"),
-          ),
-          ListTile(
-            title: Text("Profesion 3"),
-          ),
-          ListTile(
-            title: Text("Profesion 4"),
-          ),
+          const Divider(),
+          ...usuario.profesiones
+              .map((e) => ListTile(
+                    title: Text(e),
+                  ))
+              .toList()
         ]),
       ),
     );
