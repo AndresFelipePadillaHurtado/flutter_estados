@@ -1,11 +1,17 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class ScreenDos extends StatelessWidget {
+import 'package:estados/models/usuario.dart';
+import 'package:estados/providers/usuario_povider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ScreenDos extends ConsumerWidget {
   static String nameScreen = "ScreenDos";
+
   const ScreenDos({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final color = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -21,19 +27,32 @@ class ScreenDos extends StatelessWidget {
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  Usuario usuario = Usuario(
+                      nombre: "Andres",
+                      edad: 20,
+                      profesiones: ["Developer", "Video Player"]);
+                  ref
+                      .read(usuarioStateProvider.notifier)
+                      .establecerUsuario(usuario);
+                },
                 child: const Text("Establecer usuario"),
               ),
               MaterialButton(
                 color: color.primary,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  final random = Random().nextInt(90);
+                  ref.read(usuarioStateProvider.notifier).cambiarEdad(random);
+                },
                 child: const Text("Cambiar edad"),
               ),
               MaterialButton(
                 textColor: Colors.white,
                 color: color.primary,
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(usuarioStateProvider.notifier).addProfesion();
+                },
                 child: const Text("Añadir profesion"),
               ),
             ]),
